@@ -32,41 +32,41 @@ async function getDataFromCommerceTool({ query, variables }) {
 
 const resolvers = {
     Query: {
-        async customers(_, __, contextValue) {
+        async carts(_, __, contextValue) {
             try {
                 const { query } = contextValue.req.body;
                 const data = await getDataFromCommerceTool({ query });
-                return data.customers;
+                return data.carts;
             } catch (error) {
                 console.log(error);
             }
         },
 
-        async customer(_, args, contextValue) {
+        async cart(_, args, contextValue) {
             try {
                 const { query, variables } = contextValue.req.body;
                 const data = await getDataFromCommerceTool({ query, variables });
-                return data.customer;
+                return data.cart;
             } catch (error) {
                 console.log(error);
             }
         },
 
-        async products(_, args, contextValue) {
+        async carts(_, args, contextValue) {
             try {
                 const { query } = contextValue.req.body;
                 const data = await getDataFromCommerceTool({ query });
-                return data.products;
+                return data.carts;
             } catch (error) {
                 console.log(error);
             }
         },
 
-        async product(_, args, contextValue) {
+        async cart(_, args, contextValue) {
             try {
                 const { query, variables } = contextValue.req.body;
                 const data = await getDataFromCommerceTool({ query, variables });
-                return data.product;
+                return data.cart;
             } catch (error) {
                 console.log(error);
             }

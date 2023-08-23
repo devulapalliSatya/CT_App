@@ -32,33 +32,14 @@ async function getDataFromCommerceTool({ query, variables }) {
 
 const resolvers = {
     Query: {
-        async customers(_, __, contextValue) {
-            try {
-                const { query } = contextValue.req.body;
-                const data = await getDataFromCommerceTool({ query });
-                return data.customers;
-            } catch (error) {
-                console.log(error);
-            }
-        },
-
-        async customer(_, args, contextValue) {
-            try {
-                const { query, variables } = contextValue.req.body;
-                const data = await getDataFromCommerceTool({ query, variables });
-                return data.customer;
-            } catch (error) {
-                console.log(error);
-            }
-        },
-
-        async products(_, args, contextValue) {
+        async products(_, __, contextValue) {
             try {
                 const { query } = contextValue.req.body;
                 const data = await getDataFromCommerceTool({ query });
                 return data.products;
             } catch (error) {
                 console.log(error);
+                throw error; // Re-throw the error to propagate it to the client
             }
         },
 
@@ -69,9 +50,43 @@ const resolvers = {
                 return data.product;
             } catch (error) {
                 console.log(error);
+                throw error; // Re-throw the error to propagate it to the client
             }
         },
+    },
+    Mutation: {
+        createProduct: async (root, args, context, info) => {
+            try {
+                const createdProduct = await data.products.create({
+                    reviewRatingStatistics: [{
+                        highestRating: args.highestRating,
+                        lowestRating: args.lowestRating,
+                    }]
+                });
+                return createdProduct;
+            } catch (error) {
+                console.log(error);
+                throw error; // Re-throw the error to propagate it to the client
+            }
+        },
+
+        addProduct_returns_object: async (root, args, context, info) => {
+            try {
+                const createdProductId = await data.products.create({
+                    reviewRatingStatistics: [{
+                        highestRating: args.highestRating,
+                        lowestRating: args.lowestRating,
+                    }]
+                });
+                const createdProduct = await data.products.get(createdProductId);
+                return createdProduct;
+            } catch (error) {
+                console.log(error);
+                throw error; // Re-throw the error to propagate it to the client
+            }
+        }
     }
 };
+
 
 module.exports = { resolvers };
