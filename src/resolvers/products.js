@@ -32,7 +32,7 @@ async function getDataFromCommerceTool({ query, variables }) {
 
 const resolvers = {
     Query: {
-        async products(_, __, contextValue) {
+        products: async (_, __, contextValue) => {
             try {
                 const { query } = contextValue.req.body;
                 const data = await getDataFromCommerceTool({ query });
@@ -43,7 +43,7 @@ const resolvers = {
             }
         },
 
-        async product(_, args, contextValue) {
+        product: async (_, args, contextValue) => {
             try {
                 const { query, variables } = contextValue.req.body;
                 const data = await getDataFromCommerceTool({ query, variables });
@@ -55,7 +55,7 @@ const resolvers = {
         },
     },
     Mutation: {
-        createProduct: async (root, args, context, info) => {
+        createProduct: async (_, args, context, info) => {
             try {
                 const createdProduct = await data.products.create({
                     reviewRatingStatistics: [{
@@ -70,7 +70,7 @@ const resolvers = {
             }
         },
 
-        addProduct_returns_object: async (root, args, context, info) => {
+        addProduct_returns_object: async (_, args, context, info) => {
             try {
                 const createdProductId = await data.products.create({
                     reviewRatingStatistics: [{
