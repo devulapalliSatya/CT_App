@@ -38,7 +38,6 @@ const resolvers = {
                 const data = await getDataFromCommerceTool({ query });
                 return data.products;
             } catch (error) {
-                console.log(error);
                 throw error; // Re-throw the error to propagate it to the client
             }
         },
@@ -50,7 +49,6 @@ const resolvers = {
                 const data = await getDataFromCommerceTool({ query, variables });
                 return data.product;
             } catch (error) {
-                console.log(error);
                 throw error; // Re-throw the error to propagate it to the client
             }
         },
@@ -61,7 +59,6 @@ const resolvers = {
                 const data = await getDataFromCommerceTool({ query });
                 return data.productTypes;
             } catch (error) {
-                console.log(error);
                 throw error; // Re-throw the error to propagate it to the client
             }
         },
@@ -72,7 +69,6 @@ const resolvers = {
                 const data = await getDataFromCommerceTool({ query, variables });
                 return data.productType;
             } catch (error) {
-                console.log(error);
                 throw error; // Re-throw the error to propagate it to the client
             }
         },
@@ -85,11 +81,19 @@ const resolvers = {
                 const data = await getDataFromCommerceTool({ query });
                 return data.createProductType;
             } catch (error) {
-                console.log(error);
                 throw error; // Re-throw the error to propagate it to the client
             }
         },
 
+        createProduct: async (_, __, contextValue) => {
+            try {
+                const { query } = contextValue.req.body;
+                const data = await getDataFromCommerceTool({ query });
+                return data.createProduct;
+            } catch (error) {
+                throw error; // Re-throw the error to propagate it to the client
+            }
+        },
 
     }
 };
