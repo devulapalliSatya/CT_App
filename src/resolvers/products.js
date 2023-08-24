@@ -65,17 +65,25 @@ const resolvers = {
                 throw error; // Re-throw the error to propagate it to the client
             }
         },
+
+        productType: async (_, __, contextValue) => {
+            try {
+                const { query, variables } = contextValue.req.body;
+                const data = await getDataFromCommerceTool({ query, variables });
+                return data.productType;
+            } catch (error) {
+                console.log(error);
+                throw error; // Re-throw the error to propagate it to the client
+            }
+        },
     },
 
     Mutation: {
-        createProductRating: async (_, args) => {
+        createProductType: async (_, __, contextValue) => {
             try {
-                const createdProductType = await data.products.create({
-                    reviewRatingStatistics: (id)[{
-                        productRating: args.productRating
-                    }]
-                });
-                return createdProductRating;
+                const { query } = contextValue.req.body;
+                const data = await getDataFromCommerceTool({ query });
+                return data.createProductType;
             } catch (error) {
                 console.log(error);
                 throw error; // Re-throw the error to propagate it to the client
