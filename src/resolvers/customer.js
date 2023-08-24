@@ -52,25 +52,6 @@ const resolvers = {
             }
         },
 
-        async products(_, args, contextValue) {
-            try {
-                const { query } = contextValue.req.body;
-                const data = await getDataFromCommerceTool({ query });
-                return data.products;
-            } catch (error) {
-                console.log(error);
-            }
-        },
-
-        async product(_, args, contextValue) {
-            try {
-                const { query, variables } = contextValue.req.body;
-                const data = await getDataFromCommerceTool({ query, variables });
-                return data.product;
-            } catch (error) {
-                console.log(error);
-            }
-        },
     }
 };
 

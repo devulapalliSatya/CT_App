@@ -43,6 +43,7 @@ const resolvers = {
             }
         },
 
+
         product: async (_, args, contextValue) => {
             try {
                 const { query, variables } = contextValue.req.body;
@@ -53,38 +54,35 @@ const resolvers = {
                 throw error; // Re-throw the error to propagate it to the client
             }
         },
-    },
-    Mutation: {
-        createProduct: async (_, args, context, info) => {
+
+        productTypes: async (_, __, contextValue) => {
             try {
-                const createdProduct = await data.products.create({
-                    reviewRatingStatistics: [{
-                        highestRating: args.highestRating,
-                        lowestRating: args.lowestRating,
+                const { query } = contextValue.req.body;
+                const data = await getDataFromCommerceTool({ query });
+                return data.productTypes;
+            } catch (error) {
+                console.log(error);
+                throw error; // Re-throw the error to propagate it to the client
+            }
+        },
+    },
+
+    Mutation: {
+        createProductRating: async (_, args) => {
+            try {
+                const createdProductType = await data.products.create({
+                    reviewRatingStatistics: (id)[{
+                        productRating: args.productRating
                     }]
                 });
-                return createdProduct;
+                return createdProductRating;
             } catch (error) {
                 console.log(error);
                 throw error; // Re-throw the error to propagate it to the client
             }
         },
 
-        addProduct_returns_object: async (_, args, context, info) => {
-            try {
-                const createdProductId = await data.products.create({
-                    reviewRatingStatistics: [{
-                        highestRating: args.highestRating,
-                        lowestRating: args.lowestRating,
-                    }]
-                });
-                const createdProduct = await data.products.get(createdProductId);
-                return createdProduct;
-            } catch (error) {
-                console.log(error);
-                throw error; // Re-throw the error to propagate it to the client
-            }
-        }
+
     }
 };
 
