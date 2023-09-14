@@ -6,7 +6,7 @@ const resolvers = {
             try {
                 
                 const { query, variables } = contextValue.req.body;
- 
+ console.log(JSON.stringify({ query, variables }));
                 const data = await getDataFromCommerceTool({ query, variables });
                 return data.products;
             } catch (error) {
