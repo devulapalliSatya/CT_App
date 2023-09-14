@@ -1,4 +1,5 @@
 const axios = require('axios')
+const { DEV_PROJECT_KEY, DEV_API_URL } = require("../config/config");
 const commerceToolsApiUrl = `${DEV_API_URL}/${DEV_PROJECT_KEY}/graphql`;
 const { getAccessToken } = require("../middleware/token");
 

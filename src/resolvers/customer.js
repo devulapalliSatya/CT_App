@@ -1,9 +1,4 @@
-const { DEV_PROJECT_KEY, DEV_API_URL } = require("../config/config");
-const axios = require("axios");
 const { getDataFromCommerceTool} = require('../service/resolver.service')
-
-
-
 
 const resolvers = {
     Query: {

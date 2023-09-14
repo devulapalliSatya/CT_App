@@ -1,14 +1,12 @@
-const { DEV_PROJECT_KEY, DEV_API_URL } = require("../config/config");
-const axios = require("axios");
 const { getDataFromCommerceTool} = require('../service/resolver.service')
-
-
 
 const resolvers = {
     Query: {
         products: async (_, __, contextValue) => {
             try {
+                
                 const { query } = contextValue.req.body;
+ 
                 const data = await getDataFromCommerceTool({ query });
                 return data.products;
             } catch (error) {
