@@ -5,9 +5,9 @@ const resolvers = {
         products: async (_, __, contextValue) => {
             try {
                 
-                const { query } = contextValue.req.body;
+                const { query, variables } = contextValue.req.body;
  
-                const data = await getDataFromCommerceTool({ query });
+                const data = await getDataFromCommerceTool({ query, variables });
                 return data.products;
             } catch (error) {
                 throw error; // Re-throw the error to propagate it to the client
@@ -27,8 +27,8 @@ const resolvers = {
 
         productTypes: async (_, __, contextValue) => {
             try {
-                const { query } = contextValue.req.body;
-                const data = await getDataFromCommerceTool({ query });
+                const { query, variables } = contextValue.req.body;
+                const data = await getDataFromCommerceTool({ query, variables });
                 return data.productTypes;
             } catch (error) {
                 throw error; // Re-throw the error to propagate it to the client
